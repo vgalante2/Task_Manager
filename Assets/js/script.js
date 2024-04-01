@@ -2,8 +2,8 @@ const taskForm = document.querySelector('#taskForm')
 const submitBtn = document.querySelector('#taskSubmit')
 const formOutput = document.querySelector('.card-body')
 const formModal = document.querySelector('#formModal')
-const draggable = document.querySelectorAll('#draggable')
-const container = document.querySelector('.card-body')
+
+
 
 function getTask(taskObj) {
     taskObj.preventDefault()
@@ -53,7 +53,7 @@ function outputTask() {
   for (let taskObj of form) {
     formOutput.insertAdjacentHTML('beforeend', 
     `
-      <div class=" draggable parentDiv row align-center border border-dark p-3 rounded-3" draggable="true" style="background-color: #FFCCCC;">
+      <div class=" item parentDiv row align-center border border-dark p-3 rounded-3" draggable="true" style="background-color: #FFCCCC;">
        <h3> ${taskObj.name} </h3>
        <h5> ${taskObj.date} </h5>
        <p> ${taskObj.description} </p>
@@ -67,31 +67,38 @@ function outputTask() {
 
 outputTask()
 
-function setupDragAndDrop() {
-    // Setting up the drag start event for all draggable items
-    document.querySelectorAll('.draggable').forEach(draggable => {
-        draggable.addEventListener('dragstart', e => {
-            e.dataTransfer.setData('text', e.target.getAttribute('data-task-id')); // Assuming each task has a data-task-id attribute
-        });
-    });
 
-    // Enabling each .card-body container to be a drop zone
-    document.querySelectorAll('.card-body').forEach(container => {
-        container.addEventListener('dragover', e => {
-            e.preventDefault(); // Necessary to allow dropping
-        });
 
-        container.addEventListener('drop', e => {
-            e.preventDefault();
-            const taskId = e.dataTransfer.getData('text');
-            const task = document.querySelector(`[data-task-id="${taskId}"]`);
-            if(task) {
-                container.appendChild(task); // Move the task to the new container
-            }
-        });
-    });
+// DRAG AND DROP FUNCTIONS
+
+function setupDrag(els) {
+ els.draggable({
+    opacity: 0.7,
+    zIndex: 100,
+ })
 }
 
+function setupDrop() {
+    $('.item, .card-body' ).droppable({
+        accept: '.item', 
+        // The class of the items being dragged
+        drop: function (eventObj, ui) {
+            $(this).append(ui.draggable)
+            ui.draggable.css({
+                top: "auto",
+                left: "auto"
+            })
+        }
+    })
+}
+
+
+setupDrag($('.item'))
+setupDrop()
+
+
+
+// INIT
 
 function init() {
 
@@ -111,6 +118,8 @@ document.addEventListener('click', function(event) {
       }
     }
   });
+
+  
 }
 
 
