@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 
 <head>
   <meta charset="UTF-8" />
@@ -13,25 +13,75 @@
 
   <link rel="stylesheet" href="./assets/css/style.css" />
   <title>Task Board</title>
+
+
+  <style>
+     #modal {
+      display: none;
+     }
+
+     .active {
+      display: block;
+     }
+
+  </style>
 </head>
 
-<body>
+<body class="h-100">
   <header class="p-4 mb-4 text-center border-bottom border-5">
     <h1 class="display-3">Task Board</h1>
-    <p class="lead">A simple Kanban board for task management</p>
+    <p class="lead">Your Personal Task Manager</p>
   </header>
-  <div class="container">
+  <div class="container h-100">
     <div class="text-center mb-5">
-      <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
+      <button id="task-btn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
-    <!-- Todo: Create a modal with a form to add tasks -->
-    <div class="row swim-lanes text-center justify-content-between">
-      <div class="col-12 col-lg-4 d-flex">
-        <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
-          <div class="card-header bg-white">
+    <!-- MODAL -->
+    <div id="formModal" class="modal fade" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Add Task</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form  id="taskForm">
+              <div class="row g-2">
+                <div class="col-md-6 col-sm-12">
+                  <div class="mb-6">
+                    <label for="task-title" class="form-label">Task Title</label>
+                    <input type="text" class="form-control" id="task-title" name="title" placeholder="Enter task title" required>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">
+                  <div class="mb-6">
+                    <label for="task-due-date" class="form-label">Task Due Date</label>
+                    <input type="date" class="form-control" id="task-due-date" name="date" required>
+                  </div>
+                </div>
+                <div class="col-12 ">
+                  <div class="mb-12">
+                    <label for="task-description" class="form-label">Task Description</label>
+                    <textarea class="form-control" id="task-description" name="description" rows="3" placeholder="Enter task description" required></textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer d-flex align-items-center">
+                <input id="taskSubmit" type="submit" value="Submit" class="btn btn-primary mx-auto" style="background-color: rgb(103, 212, 150); border: black solid 1px">             
+               </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+<!-- MODAL END -->
+    <div class="row swim-lanes text-center justify-content-between h-100">
+      <div class="col-12 col-lg-4 d-flex h-100">
+        <div id="to-do" class="card border-light mb-3 lane flex-grow-1 ">
+          <div class="card-header bg-white " >
             <h2 class="card-title mb-1">To Do</h2>
           </div>
-          <div class="card-body bg-light">
+          <div id="left" class="card-body bg-light h-75">
             <div id="todo-cards"></div>
           </div>
         </div>
@@ -41,7 +91,7 @@
           <div class="card-header bg-white">
             <h2 class="card-title mb-1">In Progress</h2>
           </div>
-          <div class="card-body bg-light">
+          <div id="center" class="card-body bg-light">
             <div id="in-progress-cards"></div>
           </div>
         </div>
@@ -51,7 +101,7 @@
             <div class="card-header bg-white">
               <h2 class="card-title mb-1">Done</h2>
             </div>
-            <div class="card-body bg-light">
+            <div id="right" class="card-body bg-light">
               <div id="done-cards"></div>
           </div>
           </div>
@@ -67,7 +117,10 @@
   <script src="https://cdn.jsdelivr.net/npm/dayjs@1.11.3/dayjs.min.js"
     integrity="sha256-iu/zLUB+QgISXBLCW/mcDi/rnf4m4uEDO0wauy76x7U=" crossorigin="anonymous"></script>
 
-  <script src="./assets/js/script.js"></script>
+  <script src="./Assets/js/script.js"></script>
+
+
+ 
 </body>
 
 </html>
