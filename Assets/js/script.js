@@ -1,23 +1,95 @@
-const btn = document.querySelector('#task-btn')
-const modal = document.querySelector('#modal')
+const taskForm = document.querySelector('#taskForm')
+const submitBtn = document.querySelector('#taskSubmit')
+const formOutput = document.querySelector('.card-body')
+const formModal = document.querySelector('#formModal')
 
-function addTask() {
-    modal.classList.add('active')
+
+
+function getTask(taskObj) {
+    taskObj.preventDefault()
+
+
+    const taskName = taskForm.title.value
+    const taskDate = taskForm.date.value
+    const taskDescription = taskForm.description.value
+
+
+
+  let formArray = JSON.parse(localStorage.getItem('taskForm')) || []
+
+   
+    formObj = {
+        name: taskName,
+        date: taskDate,
+        description: taskDescription
+    }
+
+    formArray.push(formObj)
+
+    
+    localStorage.setItem('taskForm', JSON.stringify(formArray))
+
+    console.log(formArray)
+
+    let modalElement = document.querySelector('#formModal');
+    let modalInstance = bootstrap.Modal.getInstance(modalElement);
+    modalInstance.hide();
+
+    modalElement.addEventListener('hidden.bs.modal', function () {
+        // Refresh the page
+        location.reload();
+    });
+    
 }
 
+const form = JSON.parse(localStorage.getItem('taskForm')) || []
 
+function outputTask() {
 
+    if(form.length) {
+    formOutput.innerHTML = ''
+  }
+  
+  for (let taskObj of form) {
+    formOutput.insertAdjacentHTML('beforeend', 
+    `
+      <div class="parentDiv" style="draggable: true;">
+       <h3> ${taskObj.name} </h3>
+       <h5> ${taskObj.date} </h5>
+       <p> ${taskObj.description} </p>
+       <button class="delete-btn" >Delete</button>
+      </div>
+    `)
+  }
 
+    
+}
 
-
-
-
+outputTask()
 
 
 
 function init() {
-btn.addEventListener('click', addTask)
+
+taskForm.addEventListener('submit', getTask)
+
+
+
+// DELETING TASKS
+
+document.addEventListener('click', function(event) {
+    if (event.target.classList.contains('delete-btn')) {
+      const taskContainer = event.target.closest('.parentDiv');
+      if (taskContainer) {
+
+        taskContainer.remove();
+        localStorage.setItem('taskForm', JSON.stringify(form))
+      }
+    }
+  });
 }
 
 
-init()
+
+document.addEventListener('DOMContentLoaded', init);
+

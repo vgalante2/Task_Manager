@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 
 <head>
   <meta charset="UTF-8" />
@@ -27,19 +27,16 @@
   </style>
 </head>
 
-<body>
+<body class="h-100">
   <header class="p-4 mb-4 text-center border-bottom border-5">
     <h1 class="display-3">Task Board</h1>
     <p class="lead">Your Personal Task Manager</p>
   </header>
-  <div class="container">
+  <div class="container h-100">
     <div class="text-center mb-5">
       <button id="task-btn" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#formModal">Add Task</button>
     </div>
-    <!-- Todo: Create a modal with a form to add tasks -->
-
-
-
+    <!-- MODAL -->
     <div id="formModal" class="modal fade" tabindex="-1">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -59,7 +56,7 @@
                 <div class="col-md-6 col-sm-12">
                   <div class="mb-6">
                     <label for="task-due-date" class="form-label">Task Due Date</label>
-                    <input type="date" class="form-control" id="task-due-date" name="due-date" required>
+                    <input type="date" class="form-control" id="task-due-date" name="date" required>
                   </div>
                 </div>
                 <div class="col-12 ">
@@ -69,23 +66,22 @@
                   </div>
                 </div>
               </div>
+              <div class="modal-footer d-flex align-items-center">
+                <input id="taskSubmit" type="submit" value="Submit" class="btn btn-primary mx-auto" style="background-color: rgb(103, 212, 150); border: black solid 1px">             
+               </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save Task</button>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="row swim-lanes text-center justify-content-between">
-      <div class="col-12 col-lg-4 d-flex">
-        <div id="to-do" class="card border-light mb-3 lane flex-grow-1">
-          <div class="card-header bg-white">
+<!-- MODAL END -->
+    <div class="row swim-lanes text-center justify-content-between h-100">
+      <div class="col-12 col-lg-4 d-flex h-100">
+        <div id="to-do" class="card border-light mb-3 lane flex-grow-1 ">
+          <div class="card-header bg-white " >
             <h2 class="card-title mb-1">To Do</h2>
           </div>
-          <div class="card-body bg-light">
+          <div class="card-body bg-light h-75">
             <div id="todo-cards"></div>
           </div>
         </div>
