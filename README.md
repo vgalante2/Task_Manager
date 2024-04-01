@@ -11,7 +11,7 @@ This app allows you to add your to-do as well as add a time/date. You can drag a
 
 ## Deployment
 
-Provided as a link here - [Module 01](Your_REPO_LINK)
+LIVE LINK: ([Your_REPO_LINK](https://vgalante2.github.io/Task_Manager/))
 
 ## Usage
 
